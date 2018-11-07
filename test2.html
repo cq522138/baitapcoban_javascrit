@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var Rat = function (nameRat, massRat, speedRat) {
+        this.nameRat = nameRat;
+        this.massRat = massRat;
+        this.speedRat = speedRat;
+
+        this.getName = function () {
+            return this.nameRat;
+        }
+
+        this.getSpeed = function () {
+            return this.speedRat;
+        }
+
+        this.getWeight = function () {
+            return this.massRat;
+        }
+
+        this.run = function () {
+            alert('toc do cua chuot la ' + speedRat);
+        }
+    }
+
+    var Cat = function (nameCat, speedCat) {
+        this.nameCat = nameCat;
+        this.speedCat = speedCat;
+        this.rat = null;
+
+        this.getSpeed1 = function () {
+            return this.speedCat;
+        }
+
+        this.getName1 = function () {
+            return this.nameCat;
+        }
+
+        this.run = function () {
+            alert('toc do cua meo la' + speedCat);
+        }
+
+        this.catch = function () {
+            if (this.speedCat > this.rat.getSpeed()) {
+                return true;
+            }
+            return false;
+        }
+
+        this.eat = function (rat) {
+            if (this.catch(rat)) {
+                if (this.rat.getWeight() > 10) {
+                    alert('beo');
+                }
+                else if (this.rat.getWeight() < 10) {
+                    alert('gay');
+                }
+            }
+            else
+                alert('doi');
+        }
+
+        this.setRat123 = function (rat123) {
+            this.rat = rat123;
+        }
+    }
+
+    var List = function () {
+        this.listSize = 0;
+        this.dataStore = [];
+
+        this.toString = function () {
+            return this.dataStore;
+        }
+
+        this.append = function (element) {
+            this.dataStore[this.listSize++] = element;
+        }
+    }
+
+    var Carray = function (numElements) {
+        this.dataStore = [];
+        this.pos = 0;
+        this.numElements = numElements;
+
+        //Cài đặt phương thức để thiết đặt danh sách ngẫn nhiêu các phần tử trong mảng
+        this.setData = function () {
+            for (var i = 0; i < this.numElements; ++i) {
+                this.dataStore[i] = Math.floor(Math.random() * (this.numElements + 1));
+            }
+        }
+
+        //Cài đặt phương thức xoá các phần tử trong mảng. Mặc định các phần tử gán giá trị 0
+        this.clear = function () {
+            for (var i = 0; i < this.dataStore.length; ++i) {
+                this.dataStore[i] = 0;
+            }
+        }
+
+        //Cài đặt phương thức chèn một phần tử vào trong mảng
+        this.insert = function (element) {
+            this.dataStore[this.pos++] = element;
+        }
+
+        //Cài đặt phương thức hiển thị thông tin mảng
+        this.toString = function () {
+            var retstr = "";
+            for (var i = 0; i < this.dataStore.length; ++i) {
+                retstr += this.dataStore[i] + " ";
+                if (i > 0 && i % 10 == 0) {
+                    retstr += "\n";
+                }
+            }
+            return retstr;
+        }
+
+        //Cài đặt phương thức đổi chỗ 2 phần tử trong mảng
+        this.swap = function (arr, index1, index2) {
+            var temp = arr[index1];
+            arr[index1] = arr[index2];
+            arr[index2] = temp;
+        }
+
+
+        this.selectionSort = function () {
+            var min, temp;
+            for (var outer = 0; outer <= this.dataStore.length - 2; ++outer) {
+                min = outer;
+                for (var inner = outer + 1; inner <= this.dataStore.length - 1; ++inner) {
+                    if (this.dataStore[inner] < this.dataStore[min]) {
+                        min = inner;
+                    }
+                }
+                this.swap(this.dataStore, outer, min);
+                document.write(this.toString() + "<br>");
+            }
+        }
+    }
+
+    var rat1 = new Rat("long", 20, 10);
+    var cat1 = new Cat('mi', 25);
+    var rat2 = new Rat("Clayton", 15, 20);
+    var rat3 = new Rat("Raymond", 20, 60);
+    var rat4 = new Rat("Cynthia", 30, 30);
+    var rat5 = new Rat("Jennifer", 60, 70);
+
+    cat1.setRat123(rat1);
+
+    function catchrat() {
+        cat1.catch();
+    }
+
+    function runcat() {
+        cat1.run();
+    }
+
+    function runrat() {
+        rat1.run();
+    }
+
+    function eatrat() {
+        cat1.eat();
+    }
+
+    var names = new List();
+    names.append(rat1);
+    names.append(rat2);
+    names.append(rat3);
+    names.append(rat4);
+    names.append(rat5);
+
+    var searchRat = prompt("nhap vao ten chuot");
+    for (var i = 0; i < names.dataStore.length; i++) {
+        if (names.toString()[i].getName() === searchRat) {
+            alert("tim thay");
+            break;
+        }
+        //alert("deo thay");
+        //break;
+    }
+    var count = 0;
+    for(var j=0;j<names.dataStore.length;j++){
+        if(names.toString()[j].getSpeed() < cat1.getSpeed1()){
+           count = count +1;
+        }
+
+    }
+    alert(count);
+
+</script>
+</body>
+<button type="submit" onclick="runcat()">toc do meo</button>
+<button type="submit" onclick="runrat()">toc do chuot</button>
+<button type="submit" onclick="catchrat()">bat chuot</button>
+<button type="submit" onclick="eatrat()">an chuot</button>
+</html>

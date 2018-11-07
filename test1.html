@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function List() {
+        this.listSize = 0;
+        this.pos = 0;
+        this.dataStore = [];
+        this.find = find;
+        this.toString = toString;
+        this.insert = insert;
+        this.append = append;
+        this.remove = remove;
+        this.length = length;
+    }
+
+    function append(element) {
+        this.dataStore[this.listSize++] = element;
+    }
+
+    function find(element) {
+        for (var i = 0; i < this.dataStore.length; ++i) {
+            if (this.dataStore[i] == element) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function remove(element) {
+        var foundAt = this.find(element);
+        if (foundAt > -1) {
+            this.dataStore.splice(foundAt, 1);
+            --this.listSize;
+            return true;
+        }
+        return false;
+    }
+
+    function insert(element, after) {
+        var insertPos = this.find(after);
+        if (insertPos > -1) {
+            this.dataStore.splice(insertPos + 1, 0, element);
+            ++this.listSize;
+            return true;
+        }
+        return false;
+    }
+
+    function length() {
+        return this.listSize;
+    }
+
+    function toString() {
+        return this.dataStore;
+    }
+
+    function employees(name, salary, email) {
+        this.name = name;
+        this.salary = salary;
+        this.email = email;
+    }
+
+    var emp1 = new employees('nguyen anh tu', 1000, 'tupede@gmail.com');
+    var emp2 = new employees('nguyen nghia', 1000, 'nghia@gmail.com');
+    var emp3 = new employees('nguyen trung hieu', 1000, 'hieu@gmail.com');
+    var emp4 = new employees('ha kieu anh', 100, 'kieuanh@gmail.com');
+    var emp5 = new employees('trang hai', 300, 'hai@gmail.com');
+    var emp45 = new employees('linh',1000,'linh@gmail.com');
+
+    var listemployees = new List();
+    listemployees.append(emp1);
+    listemployees.append(emp2);
+    listemployees.append(emp3);
+    listemployees.append(emp4);
+    listemployees.append(emp5);
+    listemployees.insert(emp45,emp4);
+
+
+    for (var i = 0; i < listemployees.listSize; i++) {
+        document.write((i + 1) + '-' + listemployees.toString()[i].name + " ");
+        document.write(listemployees.toString()[i].salary + "");
+        document.write(listemployees.toString()[i].email + "<br>");
+    }
+
+
+
+</script>
+</body>
+</html>
